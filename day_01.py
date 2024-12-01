@@ -8,23 +8,19 @@ def day01_part1(filename):
         a, b = map(int, l.split())
         l1.append(a)
         l2.append(b)
-    diff = 0
-    for x, y in zip(sorted(l1), sorted(l2)):
-        diff += abs(x - y)
+    diff = sum(abs(x - y) for x, y in zip(sorted(l1), sorted(l2)))
     return diff
 
 def day01_part2(filename):
     with open(filename, "r") as f:
         ll = f.readlines()
-    l1 = list()
-    ctr = Counter()
+    l1, l2 = list(), list()
     for l in ll:
         a, b = map(int, l.split())
         l1.append(a)
-        ctr[b] += 1
-    similarity = 0
-    for x in l1:
-        similarity += x * ctr[x]
+        l2.append(b)
+    ctr = Counter(l2)
+    similarity = sum(x * ctr[x] for x in l1)
     return similarity
     
 if __name__ == "__main__":
