@@ -1,8 +1,10 @@
+from common import *
+
 def day$$_part1(filename):
-    pass
+    lines = parse_lines(filename)
 
 def day$$_part2(filename):
-    pass
+    lines = parse_lines(filename)
 
 if __name__ == "__main__":
     print("Part 1 example", day$$_part1("input/day$$_example.txt"))

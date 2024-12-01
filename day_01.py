@@ -1,10 +1,11 @@
 from collections import Counter
 
+from common import *
+
 def day01_part1(filename):
-    with open(filename, "r") as f:
-        ll = f.readlines()
+    lines = parse_lines(filename)
     l1, l2 = list(), list()
-    for l in ll:
+    for l in lines:
         a, b = map(int, l.split())
         l1.append(a)
         l2.append(b)
@@ -12,10 +13,9 @@ def day01_part1(filename):
     return diff
 
 def day01_part2(filename):
-    with open(filename, "r") as f:
-        ll = f.readlines()
+    lines = parse_lines(filename)
     l1, l2 = list(), list()
-    for l in ll:
+    for l in lines:
         a, b = map(int, l.split())
         l1.append(a)
         l2.append(b)
