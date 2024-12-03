@@ -5,7 +5,7 @@ def sgn(x):
 
 def issafe(report):
     s = 0
-    for a, b in zip(report[:-1], report[1::]):
+    for a, b in zip(report, report[1:]):
         d = b - a
         if s and sgn(d) != s:
             return False
