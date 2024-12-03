@@ -1,17 +1,15 @@
 from common import *
 
-def diff(report):
-    return [b - a for a, b in zip(report[:-1], report[1::])]
-
 def sgn(x):
     return 1 if x > 0 else -1
 
 def issafe(report):
-    diffs = diff(report)
-    s = sgn(diffs[0])
-    for d in diffs:
-        if sgn(d) != s:
+    s = 0
+    for a, b in zip(report[:-1], report[1::]):
+        d = b - a
+        if s and sgn(d) != s:
             return False
+        s = sgn(d)
         if abs(d) < 1 or abs(d) > 3:
             return False
     return True
