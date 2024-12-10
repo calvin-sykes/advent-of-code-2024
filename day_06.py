@@ -7,7 +7,7 @@ def parse_blocks(lines):
         for col, c in enumerate(l):
             if c == "#":
                 blocks_by_row[row].add(col)
-            elif c in directions:
+            elif c in D.directions:
                 guard = (row, col)
     
     blocks_by_col = {col: set() for col in range(len(lines[0]))}
@@ -46,12 +46,12 @@ def patrol(blocks_by_row, blocks_by_col, guard, direction, checkloop=False):
             exited = True
         
         # Walk to the next obstacle
-        if dx[direction]:
-            rx = range(col, new_col, dx[direction])
+        if D.dx[direction]:
+            rx = range(col, new_col, D.dx[direction])
             ry = it.repeat(row)
-        elif dy[direction]:
+        elif D.dy[direction]:
             rx = it.repeat(col)
-            ry = range(row, new_row, dy[direction])
+            ry = range(row, new_row, D.dy[direction])
         for nx, ny in zip(rx, ry):
             visited.add((ny, nx))
 
@@ -75,7 +75,7 @@ def day06_part1(filename):
     lines = parse_lines(filename)
     blocks_by_row, blocks_by_col, guard = parse_blocks(lines)
 
-    direction = directions.index(lines[guard[0]][guard[1]])
+    direction = D.directions.index(lines[guard[0]][guard[1]])
     visited = patrol(blocks_by_row, blocks_by_col, guard, direction)
     return len(visited)
 
@@ -83,7 +83,7 @@ def day06_part2(filename):
     lines = parse_lines(filename)
     blocks_by_row, blocks_by_col, guard = parse_blocks(lines)
 
-    direction = directions.index(lines[guard[0]][guard[1]])
+    direction = D.directions.index(lines[guard[0]][guard[1]])
     visited = patrol(blocks_by_row, blocks_by_col, guard, direction)
 
     nloops = 0

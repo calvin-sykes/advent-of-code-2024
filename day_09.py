@@ -1,6 +1,5 @@
 from common import *
     
-
 def day09_part1(filename):
     line, = parse_lines(filename)
 

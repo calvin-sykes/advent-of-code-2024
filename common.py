@@ -7,9 +7,9 @@ class D:
     UP = 1
     RIGHT = 2
     DOWN = 3
-directions = "<^>v"
-dx = [-1, 0, 1, 0]
-dy = [0, -1, 0, 1]
+    directions = "<^>v"
+    dx = [-1, 0, 1, 0]
+    dy = [0, -1, 0, 1]
 
 def parse_lines(filename):
     """Read file and return lines split by carriage returns"""
