@@ -20,8 +20,7 @@ def explore(topo_map, hikes, pos):
     h0 = topo_map[r][c]
 
     for d in range(4):
-        dx, dy = D.dx[d], D.dy[d]
-        nx, ny = r + dy, c + dx
+        nx, ny = r + D.dy[d], c + D.dx[d]
         if bounds((nx, ny), [(0, h), (0, w)]) and topo_map[nx][ny] == h0 + 1:
             new_hike = [((nx, ny), h0 + 1)]
             hikes.append(explore(topo_map, new_hike, (nx, ny)))
@@ -33,10 +32,10 @@ def judge_hike(hike, height9_pos=None):
         if isinstance(elem, list):
             score += judge_hike(elem, height9_pos)
         elif elem[1] == 9:
-            if height9_pos is not None and elem[0] not in height9_pos:
-                height9_pos.add(elem[0])
+            if height9_pos is None:
                 score += 1
-            elif height9_pos is None:
+            elif elem[0] not in height9_pos:
+                height9_pos.add(elem[0])
                 score += 1
     return score
 
