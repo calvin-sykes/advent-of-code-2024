@@ -2,8 +2,8 @@ from common import *
 
 def find_regions(lines):
     h, w = len(lines), len(lines[0])
-    regions = coll.defaultdict(set)
-    candidates = coll.defaultdict(set)
+    regions = defaultdict(set)
+    candidates = defaultdict(set)
 
     for row, l in enumerate(lines):
         for col, c in enumerate(l):

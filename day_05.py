@@ -9,7 +9,7 @@ def parse_pages(lines):
         else:
             updates.append(list(map(int, l.split(","))))
 
-    before = coll.defaultdict(set)
+    before = defaultdict(set)
     for b, a in rules:
         before[a].add(b)
     return updates, before

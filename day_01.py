@@ -1,5 +1,3 @@
-from collections import Counter
-
 from common import *
 
 def day01_part1(filename):

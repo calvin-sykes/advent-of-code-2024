@@ -4,7 +4,7 @@ def day08_part1(filename):
     lines = parse_lines(filename)
     h, w = len(lines), len(lines[0])
 
-    antennae = coll.defaultdict(set)
+    antennae = defaultdict(set)
     for row, l in enumerate(lines):
         for col, c in enumerate(l):
             if c != ".":
@@ -26,7 +26,7 @@ def day08_part2(filename):
     lines = parse_lines(filename)
     h, w = len(lines), len(lines[0])
 
-    antennae = coll.defaultdict(set)
+    antennae = defaultdict(set)
     for row, l in enumerate(lines):
         for col, c in enumerate(l):
             if c != ".":
