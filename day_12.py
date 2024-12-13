@@ -79,9 +79,8 @@ def day12_part2(filename):
                     if cr == 0 and cc == 0:
                         continue
                     nr, nc = pr + cr, pc + cc
-                    if bounds([nr, nc], [(0, h), (0, w)]):
-                        if (nr, nc) in regions[base]:
-                            corners -= 1
+                    if (nr, nc) in regions[base]:
+                        corners -= 1
             elif n_ngb == 2: # either straight edge, or L shape
                 if (ngb == {(0, 1), (0, -1)}) or (ngb == {(1, 0), (-1, 0)}):
                     corners = 0
