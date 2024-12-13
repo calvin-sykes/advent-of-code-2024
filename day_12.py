@@ -3,25 +3,23 @@ from common import *
 def find_regions(lines):
     h, w = len(lines), len(lines[0])
     regions = defaultdict(set)
-    candidates = defaultdict(set)
-
-    for row, l in enumerate(lines):
-        for col, c in enumerate(l):
-            try:
-                base, *others = {base for base in candidates if (row, col) in candidates[base]}
-            except ValueError:
-                base = (row, col, c)
-                regions[base].add((row, col))
+    seen = set()
+    
+    for base_row, l in enumerate(lines):
+        for base_col, c in enumerate(l):
+            if (base_row, base_col) in seen:
+                continue
             else:
-                regions[base].add((row, col))
-                candidates[base].remove((row, col))
-                for other in others:
-                    regions[base].update(regions.pop(other))
-                    candidates[base].update(candidates.pop(other))
-            for d in range(4):
-                nr, nc = row + D.dy[d], col + D.dx[d]
-                if bounds([nr, nc], [(0, h), (0, w)]) and lines[nr][nc] == c:
-                    candidates[base].add((nr, nc))
+                key = (base_row, base_col, c)
+                stack = [(base_row, base_col)]
+                while len(stack):
+                    row, col = stack.pop()
+                    regions[key].add((row, col))
+                    seen.add((row, col))
+                    for d in range(4):
+                        nr, nc = row + D.dy[d], col + D.dx[d]
+                        if bounds([nr, nc], [(0, h), (0, w)]) and lines[nr][nc] == c and (nr, nc) not in seen:
+                            stack.append((nr, nc))
     return regions
 
 def day12_part1(filename):
