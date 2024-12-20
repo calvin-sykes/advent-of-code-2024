@@ -30,3 +30,6 @@ def bounds(vars, bounds):
         if v < b[0] or v >= b[1]:
             return False
     return True
+
+def plot_grid(grid):
+    print("\n".join(["".join(l) for l in grid]))
