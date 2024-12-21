@@ -87,7 +87,6 @@ def day20_part2(filename, threshold):
                 if dist[cheat_start] > dist[cheat_end]:
                     cheat_start, cheat_end = cheat_end, cheat_start
                 d = cheat_length + dist[cheat_start] + (dist[end] - dist[cheat_end])
-                seen.add((cheat_start, cheat_end))
                 seen.add((cheat_end, cheat_start))
                 if d <= nocheat_length - threshold:
                     nshort += 1
