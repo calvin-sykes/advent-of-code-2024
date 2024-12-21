@@ -1,6 +1,5 @@
 from common import *
 from functools import cache
-from math import log
 
 def create_keypad(keys, hole_row, hole_col=0):
     def press(current, target):
@@ -30,35 +29,17 @@ def create_keypad(keys, hole_row, hole_col=0):
 numeric = "789456123_0A"
 press_numeric = create_keypad(numeric, 3)
 
-
 #   ^ A     x 1 2
 # < v >     3 4 5
 directional = "_^A<v>"
 press_directional = create_keypad(directional, 0)
 
-def press_keypads_chain(code, keys):
-    assert keys[0] == press_numeric
-
-    sequence = code
-    new_sequence = []
-    for key_func in keys:
-        current = "A"
-        for target in sequence:
-            new_sequence.append(key_func(current, target))
-            new_sequence.append("A")
-            current = target
-        sequence = "".join(new_sequence)
-        new_sequence.clear()
-    return sequence
-
-def press_keypads_recursive(code, keys):
-    assert keys[0] == press_numeric
-    levels = len(keys) - 1
+def press_keypads_recursive(code, key_funcs):
+    levels = len(key_funcs) - 1
 
     @cache
     def num_presses(current, target, level):
-        sequence = keys[level](current, target)
-        sequence += "A"
+        sequence = key_funcs[level](current, target) + "A"
         if level == levels:
             return len(sequence)
         else:
@@ -76,22 +57,12 @@ def press_keypads_recursive(code, keys):
         current = target
     return length
 
-def day21_part1(filename):
+def day21(filename, part2=False):
     codes = parse_lines(filename)
 
+    nchain = 25 if part2 else 2
+    keypad_chain = [press_numeric] + [press_directional] * nchain
     complexity = 0
-    keypad_chain = [press_numeric, press_directional, press_directional]
-    for code in codes:
-        button_sequence = press_keypads_chain(code, keypad_chain)
-        numeric_code = int("".join(c for c in code if c.isnumeric()))
-        complexity += len(button_sequence) * numeric_code
-    return complexity
-
-def day21_part2(filename):
-    codes = parse_lines(filename)
-
-    complexity = 0
-    keypad_chain = [press_numeric] + [press_directional] * 25
     for code in codes:
         sequence_length = press_keypads_recursive(code, keypad_chain)
         numeric_code = int("".join(c for c in code if c.isnumeric()))
@@ -99,7 +70,7 @@ def day21_part2(filename):
     return complexity
 
 if __name__ == "__main__":
-    print("Part 1 example", day21_part1("input/day21_example.txt"))
-    print("Part 1", day21_part1("input/day21.txt"))
-    print("Part 2 example", day21_part2("input/day21_example.txt"))
-    print("Part 2", day21_part2("input/day21.txt"))
+    print("Part 1 example", day21("input/day21_example.txt"))
+    print("Part 1", day21("input/day21.txt"))
+    print("Part 2 example", day21("input/day21_example.txt", True))
+    print("Part 2", day21("input/day21.txt", True))
