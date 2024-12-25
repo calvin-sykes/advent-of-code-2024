@@ -1,5 +1,5 @@
 import itertools as it
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict, deque
 from tqdm.auto import tqdm, trange
 
 class D:
